@@ -10,7 +10,7 @@ export function Hero() {
         </Badge>
         <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6 animate-fade-in-up">
           We Build Digital
-          <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+          <span className="text-white">
             {" "}Solutions
           </span>
         </h1>
