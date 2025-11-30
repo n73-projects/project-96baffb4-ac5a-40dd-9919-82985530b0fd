@@ -7,7 +7,7 @@ export function Header() {
       <div className="container mx-auto flex h-14 items-center justify-between px-6">
         <div className="flex items-center gap-8">
           <h1 className="text-2xl font-bold">
-            n<span className="text-primary">5</span>
+            x<span className="text-primary">73</span>
           </h1>
           <nav className="hidden md:flex items-center gap-6">
             <a href="#services" className="text-sm font-medium hover:text-primary transition-colors">

@@ -7,7 +7,7 @@ export function Footer() {
       <div className="container mx-auto max-w-6xl">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
-            <h3 className="text-2xl font-bold mb-4">n5</h3>
+            <h3 className="text-2xl font-bold mb-4">x73</h3>
             <p className="text-muted-foreground mb-4">
               Transforming your ideas into powerful digital solutions with modern web technologies.
             </p>
@@ -60,7 +60,7 @@ export function Footer() {
         <Separator className="my-8" />
 
         <div className="flex flex-col md:flex-row justify-between items-center text-sm text-muted-foreground">
-          <p>© 2024 n5 Software Development Agency. All rights reserved.</p>
+          <p>© 2024 x73 Software Development Agency. All rights reserved.</p>
           <div className="flex gap-6 mt-4 md:mt-0">
             <span className="hover:text-primary cursor-pointer transition-colors">Privacy Policy</span>
             <span className="hover:text-primary cursor-pointer transition-colors">Terms of Service</span>

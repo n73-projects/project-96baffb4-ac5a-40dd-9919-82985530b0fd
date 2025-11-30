@@ -9,14 +9,13 @@ export function Hero() {
           ✨ Innovation Through Code
         </Badge>
         <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6 animate-fade-in-up">
-          We Build Digital
+          We Turn Ideas Into
           <span className="text-white">
-            {" "}Solutions
+            {" "}Software
           </span>
         </h1>
         <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto animate-fade-in-up animation-delay-200">
-          n5 is a cutting-edge software development agency that transforms ideas into powerful digital experiences.
-          We craft scalable, modern applications that drive business growth.
+          x73 is a modern software agency turning ideas into fast, scalable digital products. We build clean, high-performance applications that help businesses grow.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up animation-delay-400">
           <Button size="lg" className="text-lg px-8">

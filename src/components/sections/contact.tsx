@@ -27,7 +27,7 @@ export function Contact() {
             <CardContent>
               <p className="text-muted-foreground mb-4">Send us an email and we'll get back to you within 24 hours.</p>
               <Button variant="outline" className="w-full">
-                hello@n5.dev
+                hello@x73.dev
               </Button>
             </CardContent>
           </Card>
