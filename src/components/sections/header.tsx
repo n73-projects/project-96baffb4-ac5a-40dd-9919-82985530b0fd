@@ -14,7 +14,7 @@ export function Header() {
               Services
             </a>
             <a href="#team" className="text-sm font-medium hover:text-primary transition-colors">
-              Team
+              About
             </a>
             <a href="#contact" className="text-sm font-medium hover:text-primary transition-colors">
               Contact

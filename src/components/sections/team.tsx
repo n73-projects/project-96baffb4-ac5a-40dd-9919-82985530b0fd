@@ -4,18 +4,11 @@ import { Badge } from "@/components/ui/badge"
 
 const team = [
   {
-    name: "Alex Rodriguez",
-    role: "Lead Developer & Co-Founder",
-    expertise: ["React", "Node.js", "TypeScript", "AWS"],
+    name: "Valentin Bontus",
+    role: "Full Stack Developer & Founder",
+    expertise: ["React", "Node.js", "TypeScript", "SEO", "UI/UX Design"],
     avatar: "/api/placeholder/100/100",
-    initials: "AR"
-  },
-  {
-    name: "Sarah Chen",
-    role: "Full Stack Developer & Co-Founder",
-    expertise: ["UI/UX Design", "Python", "PostgreSQL", "React Native"],
-    avatar: "/api/placeholder/100/100",
-    initials: "SC"
+    initials: "VB"
   }
 ]
 
@@ -24,13 +17,14 @@ export function Team() {
     <section id="team" className="py-20 px-6">
       <div className="container mx-auto max-w-6xl">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Meet Our Team</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">About Me</h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Meet the passionate duo behind n5 - experienced developers and co-founders dedicated to creating exceptional digital solutions
+            Hi, I'm Valentin - a passionate full-stack developer dedicated to creating exceptional digital solutions for your business
           </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl mx-auto">
-          {team.map((member, index) => (
+        <div className="flex justify-center">
+          <div className="max-w-sm">
+            {team.map((member, index) => (
             <Card key={index} className="text-center hover:shadow-lg transition-shadow">
               <CardContent className="pt-8">
                 <Avatar className="w-20 h-20 mx-auto mb-4">
@@ -48,7 +42,8 @@ export function Team() {
                 </div>
               </CardContent>
             </Card>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </section>

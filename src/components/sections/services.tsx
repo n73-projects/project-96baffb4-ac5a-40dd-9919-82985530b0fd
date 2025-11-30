@@ -1,5 +1,5 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Code, Smartphone, Globe, Zap, Shield, Headphones } from "lucide-react"
+import { Code, Search, Globe, Zap, Shield, Headphones } from "lucide-react"
 
 const services = [
   {
@@ -13,9 +13,9 @@ const services = [
     description: "Modern, responsive web applications built with cutting-edge technologies."
   },
   {
-    icon: Smartphone,
-    title: "Mobile Development",
-    description: "Native and cross-platform mobile apps that deliver exceptional user experiences."
+    icon: Search,
+    title: "SEO Optimization",
+    description: "Improve your website's search engine rankings and drive more organic traffic to your business."
   },
   {
     icon: Zap,

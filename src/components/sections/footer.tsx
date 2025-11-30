@@ -9,7 +9,7 @@ export function Footer() {
           <div>
             <h3 className="text-2xl font-bold mb-4">n5</h3>
             <p className="text-muted-foreground mb-4">
-              Transforming ideas into powerful digital solutions since 2020.
+              Transforming your ideas into powerful digital solutions with modern web technologies.
             </p>
             <div className="flex gap-4">
               <Github className="h-5 w-5 text-muted-foreground hover:text-primary cursor-pointer transition-colors" />
@@ -22,7 +22,7 @@ export function Footer() {
             <h4 className="text-lg font-semibold mb-4">Services</h4>
             <ul className="space-y-2 text-muted-foreground">
               <li className="hover:text-primary cursor-pointer transition-colors">Web Development</li>
-              <li className="hover:text-primary cursor-pointer transition-colors">Mobile Apps</li>
+              <li className="hover:text-primary cursor-pointer transition-colors">SEO Optimization</li>
               <li className="hover:text-primary cursor-pointer transition-colors">UI/UX Design</li>
               <li className="hover:text-primary cursor-pointer transition-colors">Consulting</li>
             </ul>
@@ -34,7 +34,7 @@ export function Footer() {
               <li className="hover:text-primary cursor-pointer transition-colors">React & Next.js</li>
               <li className="hover:text-primary cursor-pointer transition-colors">Node.js</li>
               <li className="hover:text-primary cursor-pointer transition-colors">TypeScript</li>
-              <li className="hover:text-primary cursor-pointer transition-colors">AWS Cloud</li>
+              <li className="hover:text-primary cursor-pointer transition-colors">SEO & Analytics</li>
             </ul>
           </div>
 
