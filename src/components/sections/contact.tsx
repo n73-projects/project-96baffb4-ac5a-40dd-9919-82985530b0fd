@@ -67,7 +67,7 @@ export function Contact() {
           </Card>
         </div>
 
-        <Card className="text-center bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-950/20 dark:to-purple-950/20 border-0">
+        <Card className="text-center">
           <CardContent className="p-8">
             <Badge variant="secondary" className="mb-4">
               🚀 Free Consultation
