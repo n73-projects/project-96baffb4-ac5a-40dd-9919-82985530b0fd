@@ -1,22 +1,41 @@
-import React, { useState } from "react"
+import React, { useState, useMemo } from "react"
 import { Calendar } from "@/components/ui/calendar"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
-import { Clock, Calendar as CalendarIcon, User, MessageSquare } from "lucide-react"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Clock, Calendar as CalendarIcon, User, MessageSquare, Timer } from "lucide-react"
 import toast from "react-hot-toast"
 
-const timeSlots = [
-  "09:00", "09:30", "10:00", "10:30", "11:00", "11:30",
-  "12:00", "12:30", "13:00", "13:30", "14:00", "14:30",
-  "15:00", "15:30", "16:00", "16:30", "17:00", "17:30"
+// Generate time slots from 10:00 to 17:00 in 30-minute intervals
+const generateTimeSlots = () => {
+  const slots = []
+  for (let hour = 10; hour <= 17; hour++) {
+    if (hour === 17) {
+      slots.push(`${hour.toString().padStart(2, '0')}:00`)
+    } else {
+      slots.push(`${hour.toString().padStart(2, '0')}:00`)
+      slots.push(`${hour.toString().padStart(2, '0')}:30`)
+    }
+  }
+  return slots
+}
+
+const timeSlots = generateTimeSlots()
+
+const meetingDurations = [
+  { value: 30, label: "30 minutes" },
+  { value: 60, label: "1 hour" },
+  { value: 90, label: "1.5 hours" },
+  { value: 120, label: "2 hours" }
 ]
 
 export function BookingCalendar() {
   const [selectedDate, setSelectedDate] = useState<Date>()
   const [selectedTime, setSelectedTime] = useState<string>("")
+  const [selectedDuration, setSelectedDuration] = useState<number>(30)
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -28,6 +47,25 @@ export function BookingCalendar() {
     setFormData(prev => ({ ...prev, [field]: value }))
   }
 
+  // Calculate end time based on start time and duration
+  const calculateEndTime = (startTime: string, durationMinutes: number) => {
+    const [hours, minutes] = startTime.split(':').map(Number)
+    const startMinutes = hours * 60 + minutes
+    const endMinutes = startMinutes + durationMinutes
+    const endHours = Math.floor(endMinutes / 60)
+    const endMins = endMinutes % 60
+    return `${endHours.toString().padStart(2, '0')}:${endMins.toString().padStart(2, '0')}`
+  }
+
+  // Filter available time slots based on selected duration
+  const availableTimeSlots = useMemo(() => {
+    return timeSlots.filter(slot => {
+      const endTime = calculateEndTime(slot, selectedDuration)
+      const [endHour] = endTime.split(':').map(Number)
+      return endHour <= 17 // Must end by 17:00
+    })
+  }, [selectedDuration])
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
 
@@ -36,13 +74,31 @@ export function BookingCalendar() {
       return
     }
 
+    const endTime = calculateEndTime(selectedTime, selectedDuration)
+
     // Here you would typically send the data to your backend
-    toast.success("Meeting request submitted! I'll get back to you within 24 hours.")
+    toast.success(`Meeting request submitted! ${selectedDuration} minutes from ${selectedTime} to ${endTime}. I'll get back to you within 24 hours.`)
 
     // Reset form
     setSelectedDate(undefined)
     setSelectedTime("")
+    setSelectedDuration(30)
     setFormData({ name: "", email: "", company: "", message: "" })
+  }
+
+  // Reset selected time when duration changes and current time is no longer valid
+  const handleDurationChange = (duration: number) => {
+    setSelectedDuration(duration)
+    if (selectedTime) {
+      const newAvailableSlots = timeSlots.filter(slot => {
+        const endTime = calculateEndTime(slot, duration)
+        const [endHour] = endTime.split(':').map(Number)
+        return endHour <= 17
+      })
+      if (!newAvailableSlots.includes(selectedTime)) {
+        setSelectedTime("")
+      }
+    }
   }
 
   const formatDate = (date: Date) => {
@@ -94,23 +150,56 @@ export function BookingCalendar() {
             />
           </div>
 
+          {/* Duration Selector */}
+          {selectedDate && (
+            <div>
+              <Label className="text-sm font-medium mb-3 block flex items-center gap-2">
+                <Timer className="h-4 w-4" />
+                Meeting Duration
+              </Label>
+              <Select value={selectedDuration.toString()} onValueChange={(value) => handleDurationChange(Number(value))}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select duration" />
+                </SelectTrigger>
+                <SelectContent>
+                  {meetingDurations.map((duration) => (
+                    <SelectItem key={duration.value} value={duration.value.toString()}>
+                      {duration.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          )}
+
           {/* Time Slots */}
           {selectedDate && (
             <div>
-              <Label className="text-sm font-medium mb-3 block">Available Times</Label>
+              <Label className="text-sm font-medium mb-3 block">
+                Available Times ({selectedDuration} minutes each)
+              </Label>
               <div className="grid grid-cols-3 gap-2">
-                {timeSlots.map((time) => (
-                  <Button
-                    key={time}
-                    variant={selectedTime === time ? "default" : "outline"}
-                    size="sm"
-                    onClick={() => setSelectedTime(time)}
-                    className="text-sm"
-                  >
-                    {time}
-                  </Button>
-                ))}
+                {availableTimeSlots.map((time) => {
+                  const endTime = calculateEndTime(time, selectedDuration)
+                  return (
+                    <Button
+                      key={time}
+                      variant={selectedTime === time ? "default" : "outline"}
+                      size="sm"
+                      onClick={() => setSelectedTime(time)}
+                      className="text-xs h-auto py-2 flex flex-col gap-1"
+                    >
+                      <span className="font-medium">{time}</span>
+                      <span className="text-[10px] opacity-70">to {endTime}</span>
+                    </Button>
+                  )
+                })}
               </div>
+              {availableTimeSlots.length === 0 && (
+                <p className="text-sm text-muted-foreground text-center py-4">
+                  No available time slots for {selectedDuration} minute meetings on this day.
+                </p>
+              )}
             </div>
           )}
 
@@ -119,10 +208,13 @@ export function BookingCalendar() {
             <div className="p-4 bg-muted rounded-lg">
               <div className="flex items-center gap-2 text-sm">
                 <Clock className="h-4 w-4" />
-                <span className="font-medium">Selected:</span>
+                <span className="font-medium">Selected Meeting:</span>
               </div>
               <p className="text-sm text-muted-foreground mt-1">
-                {formatDate(selectedDate)} at {selectedTime}
+                {formatDate(selectedDate)}
+              </p>
+              <p className="text-sm font-medium">
+                {selectedTime} - {calculateEndTime(selectedTime, selectedDuration)} ({selectedDuration} minutes)
               </p>
             </div>
           )}
@@ -194,7 +286,8 @@ export function BookingCalendar() {
                 <div className="text-sm">
                   <p className="font-medium text-blue-900 dark:text-blue-100">What to expect:</p>
                   <ul className="text-blue-700 dark:text-blue-300 mt-1 space-y-1">
-                    <li>• 30-minute consultation call</li>
+                    <li>• Flexible meeting duration (30 min - 2 hours)</li>
+                    <li>• Available 10:00 AM - 5:00 PM, weekdays only</li>
                     <li>• Discussion of your project requirements</li>
                     <li>• Technical recommendations and timeline</li>
                     <li>• Custom proposal and next steps</li>
