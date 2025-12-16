@@ -132,13 +132,13 @@ export function BookingCalendar() {
         </CardHeader>
         <CardContent className="space-y-6">
           {/* Calendar */}
-          <div className="flex justify-center">
+          <div className="w-full">
             <Calendar
               mode="single"
               selected={selectedDate}
               onSelect={setSelectedDate}
               disabled={disabledDays}
-              className="rounded-md border"
+              className="rounded-md border w-full"
               required
             />
           </div>
