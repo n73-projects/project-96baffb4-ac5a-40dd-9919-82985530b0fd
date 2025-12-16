@@ -118,157 +118,167 @@ export function BookingCalendar() {
   }
 
   return (
-    <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8">
-      {/* Calendar Section */}
+    <div className="max-w-7xl mx-auto space-y-8">
+      {/* Calendar and Time Selection Section */}
       <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <CalendarIcon className="h-5 w-5" />
+        <CardHeader className="text-center">
+          <CardTitle className="flex items-center justify-center gap-2 text-2xl">
+            <CalendarIcon className="h-6 w-6" />
             Select Date & Time
           </CardTitle>
-          <CardDescription>
+          <CardDescription className="text-base">
             Choose your preferred date and time for our consultation call
           </CardDescription>
         </CardHeader>
-        <CardContent className="space-y-6">
-          {/* Calendar */}
-          <div className="w-full">
-            <Calendar
-              mode="single"
-              selected={selectedDate}
-              onSelect={setSelectedDate}
-              disabled={disabledDays}
-              className="rounded-md border w-full"
-              required
-            />
-          </div>
-
-          {/* Time Slots */}
-          <div>
-            <Label className="text-sm font-medium mb-3 block">
-              Available Times (30 minutes each)
-            </Label>
-            <div className="grid grid-cols-3 gap-2">
-              {availableTimeSlots.map((time) => {
-                const endTime = calculateEndTime(time)
-                return (
-                  <Button
-                    key={time}
-                    variant={selectedTime === time ? "default" : "outline"}
-                    size="sm"
-                    onClick={() => setSelectedTime(time)}
-                    className="text-xs h-auto py-2 flex flex-col gap-1"
-                  >
-                    <span className="font-medium">{time}</span>
-                    <span className="text-[10px] opacity-70">to {endTime}</span>
-                  </Button>
-                )
-              })}
+        <CardContent>
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+            {/* Calendar */}
+            <div className="lg:col-span-1">
+              <Calendar
+                mode="single"
+                selected={selectedDate}
+                onSelect={setSelectedDate}
+                disabled={disabledDays}
+                className="rounded-md border w-full"
+                required
+              />
             </div>
-          </div>
 
-          {/* Selected DateTime Display */}
-          {selectedDate && selectedTime && (
-            <div className="p-4 bg-muted rounded-lg">
-              <div className="flex items-center gap-2 text-sm">
-                <Clock className="h-4 w-4" />
-                <span className="font-medium">Selected Meeting:</span>
+            {/* Time Slots */}
+            <div className="lg:col-span-2">
+              <Label className="text-sm font-medium mb-4 block">
+                Available Times (30 minutes each)
+              </Label>
+              <div className="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-5 gap-3">
+                {availableTimeSlots.map((time) => {
+                  const endTime = calculateEndTime(time)
+                  return (
+                    <Button
+                      key={time}
+                      variant={selectedTime === time ? "default" : "outline"}
+                      size="sm"
+                      onClick={() => setSelectedTime(time)}
+                      className="text-xs h-auto py-3 flex flex-col gap-1"
+                    >
+                      <span className="font-medium">{time}</span>
+                      <span className="text-[10px] opacity-70">to {endTime}</span>
+                    </Button>
+                  )
+                })}
               </div>
-              <p className="text-sm text-muted-foreground mt-1">
-                {formatDate(selectedDate)}
-              </p>
-              <p className="text-sm font-medium">
-                {selectedTime} - {calculateEndTime(selectedTime)} (30 minutes)
-              </p>
+
+              {/* Selected DateTime Display */}
+              {selectedDate && selectedTime && (
+                <div className="p-4 bg-muted rounded-lg mt-6">
+                  <div className="flex items-center gap-2 text-sm">
+                    <Clock className="h-4 w-4" />
+                    <span className="font-medium">Selected Meeting:</span>
+                  </div>
+                  <p className="text-sm text-muted-foreground mt-1">
+                    {formatDate(selectedDate)}
+                  </p>
+                  <p className="text-sm font-medium">
+                    {selectedTime} - {calculateEndTime(selectedTime)} (30 minutes)
+                  </p>
+                </div>
+              )}
             </div>
-          )}
+          </div>
         </CardContent>
       </Card>
 
       {/* Booking Form */}
       <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <User className="h-5 w-5" />
+        <CardHeader className="text-center">
+          <CardTitle className="flex items-center justify-center gap-2 text-2xl">
+            <User className="h-6 w-6" />
             Your Information
           </CardTitle>
-          <CardDescription>
+          <CardDescription className="text-base">
             Tell me about your project and how I can help you
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="space-y-2">
-                <Label htmlFor="name">Name *</Label>
-                <Input
-                  id="name"
-                  value={formData.name}
-                  onChange={(e) => handleInputChange("name", e.target.value)}
-                  placeholder="Your full name"
-                  required
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="email">Email *</Label>
-                <Input
-                  id="email"
-                  type="email"
-                  value={formData.email}
-                  onChange={(e) => handleInputChange("email", e.target.value)}
-                  placeholder="your@email.com"
-                  required
-                />
-              </div>
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {/* Form Fields */}
+            <div className="lg:col-span-2">
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="name">Name *</Label>
+                    <Input
+                      id="name"
+                      value={formData.name}
+                      onChange={(e) => handleInputChange("name", e.target.value)}
+                      placeholder="Your full name"
+                      required
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="email">Email *</Label>
+                    <Input
+                      id="email"
+                      type="email"
+                      value={formData.email}
+                      onChange={(e) => handleInputChange("email", e.target.value)}
+                      placeholder="your@email.com"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="company">Company</Label>
+                  <Input
+                    id="company"
+                    value={formData.company}
+                    onChange={(e) => handleInputChange("company", e.target.value)}
+                    placeholder="Your company name (optional)"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="message">Project Details *</Label>
+                  <Textarea
+                    id="message"
+                    value={formData.message}
+                    onChange={(e) => handleInputChange("message", e.target.value)}
+                    placeholder="Tell me about your project, goals, timeline, and any specific requirements..."
+                    className="min-h-[120px]"
+                    required
+                  />
+                </div>
+
+                <Button
+                  type="submit"
+                  className="w-full"
+                  size="lg"
+                  disabled={!selectedDate || !selectedTime || !formData.name || !formData.email || !formData.message}
+                >
+                  Book Consultation Call
+                </Button>
+              </form>
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="company">Company</Label>
-              <Input
-                id="company"
-                value={formData.company}
-                onChange={(e) => handleInputChange("company", e.target.value)}
-                placeholder="Your company name (optional)"
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="message">Project Details *</Label>
-              <Textarea
-                id="message"
-                value={formData.message}
-                onChange={(e) => handleInputChange("message", e.target.value)}
-                placeholder="Tell me about your project, goals, timeline, and any specific requirements..."
-                className="min-h-[100px]"
-                required
-              />
-            </div>
-
-            <div className="space-y-4">
-              <div className="flex items-start gap-3 p-4 bg-muted rounded-lg">
-                <MessageSquare className="h-5 w-5 text-muted-foreground mt-0.5" />
-                <div className="text-sm">
-                  <p className="font-medium">What to expect:</p>
-                  <ul className="text-muted-foreground mt-1 space-y-1">
-                    <li>• 30-minute consultation meeting</li>
-                    <li>• Available 10:00 AM - 5:00 PM, weekdays only</li>
-                    <li>• Discussion of your project requirements</li>
-                    <li>• Technical recommendations and timeline</li>
-                    <li>• Custom proposal and next steps</li>
-                  </ul>
+            {/* What to Expect Sidebar */}
+            <div className="lg:col-span-1">
+              <div className="sticky top-8">
+                <div className="flex items-start gap-3 p-4 bg-muted rounded-lg">
+                  <MessageSquare className="h-5 w-5 text-muted-foreground mt-0.5" />
+                  <div className="text-sm">
+                    <p className="font-medium">What to expect:</p>
+                    <ul className="text-muted-foreground mt-2 space-y-1">
+                      <li>• 30-minute consultation meeting</li>
+                      <li>• Available 10:00 AM - 5:00 PM, weekdays only</li>
+                      <li>• Discussion of your project requirements</li>
+                      <li>• Technical recommendations and timeline</li>
+                      <li>• Custom proposal and next steps</li>
+                    </ul>
+                  </div>
                 </div>
               </div>
-
-              <Button
-                type="submit"
-                className="w-full"
-                size="lg"
-                disabled={!selectedDate || !selectedTime || !formData.name || !formData.email || !formData.message}
-              >
-                Book Consultation Call
-              </Button>
             </div>
-          </form>
+          </div>
         </CardContent>
       </Card>
     </div>
