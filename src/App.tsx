@@ -2,6 +2,7 @@ import { Header } from "./components/sections/header";
 import { Hero } from "./components/sections/hero";
 import { Services } from "./components/sections/services";
 import { Team } from "./components/sections/team";
+import { Booking } from "./components/sections/booking";
 import { Contact } from "./components/sections/contact";
 import { Footer } from "./components/sections/footer";
 
@@ -13,6 +14,7 @@ function App() {
         <Hero />
         <Services />
         <Team />
+        <Booking />
         <Contact />
       </main>
       <Footer />

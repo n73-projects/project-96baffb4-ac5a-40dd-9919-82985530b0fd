@@ -18,11 +18,11 @@ export function Hero() {
           x73 is a modern software agency turning ideas into fast, scalable digital products. We build clean, high-performance applications that help businesses grow.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up animation-delay-400">
-          <Button size="lg" className="text-lg px-8">
-            Start Your Project
+          <Button size="lg" className="text-lg px-8" asChild>
+            <a href="#booking">Start Your Project</a>
           </Button>
-          <Button variant="outline" size="lg" className="text-lg px-8">
-            View Our Work
+          <Button variant="outline" size="lg" className="text-lg px-8" asChild>
+            <a href="#services">View My Services</a>
           </Button>
         </div>
       </div>

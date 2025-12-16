@@ -10,7 +10,7 @@ export function Contact() {
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">Ready to Start Your Project?</h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Let's discuss how we can bring your ideas to life. Get in touch with our team today.
+            Let's discuss how we can bring your ideas to life. Get in touch today.
           </p>
         </div>
 
@@ -22,10 +22,10 @@ export function Contact() {
                   <Mail className="h-6 w-6 text-primary" />
                 </div>
               </div>
-              <CardTitle className="text-lg">Email Us</CardTitle>
+              <CardTitle className="text-lg">Email Me</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-muted-foreground mb-4">Send us an email and we'll get back to you within 24 hours.</p>
+              <p className="text-muted-foreground mb-4">Send me an email and I'll get back to you within 24 hours.</p>
               <Button variant="outline" className="w-full">
                 hello@x73.dev
               </Button>
@@ -42,7 +42,7 @@ export function Contact() {
               <CardTitle className="text-lg">Live Chat</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-muted-foreground mb-4">Chat with our team in real-time for immediate assistance.</p>
+              <p className="text-muted-foreground mb-4">Chat with me in real-time for immediate assistance.</p>
               <Button variant="outline" className="w-full">
                 Start Chat
               </Button>
@@ -60,8 +60,8 @@ export function Contact() {
             </CardHeader>
             <CardContent>
               <p className="text-muted-foreground mb-4">Book a 30-minute consultation call to discuss your project.</p>
-              <Button variant="outline" className="w-full">
-                Book Call
+              <Button variant="outline" className="w-full" asChild>
+                <a href="#booking">Book Call</a>
               </Button>
             </CardContent>
           </Card>
@@ -76,8 +76,8 @@ export function Contact() {
             <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
               Ready to take your business to the next level? Let's build something amazing together.
             </p>
-            <Button size="lg" className="text-lg px-8">
-              Get Free Consultation
+            <Button size="lg" className="text-lg px-8" asChild>
+              <a href="#booking">Get Free Consultation</a>
             </Button>
           </CardContent>
         </Card>

@@ -16,6 +16,9 @@ export function Header() {
             <a href="#team" className="text-sm font-medium hover:text-primary transition-colors">
               About
             </a>
+            <a href="#booking" className="text-sm font-medium hover:text-primary transition-colors">
+              Book Call
+            </a>
             <a href="#contact" className="text-sm font-medium hover:text-primary transition-colors">
               Contact
             </a>
@@ -24,8 +27,8 @@ export function Header() {
 
         <div className="flex items-center gap-4">
           <ThemeToggle />
-          <Button size="sm">
-            Get Started
+          <Button size="sm" asChild>
+            <a href="#booking">Get Started</a>
           </Button>
         </div>
       </div>
