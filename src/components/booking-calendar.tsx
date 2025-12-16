@@ -8,21 +8,13 @@ import { Textarea } from "@/components/ui/textarea"
 import { Clock, Calendar as CalendarIcon, User, MessageSquare } from "lucide-react"
 import toast from "react-hot-toast"
 
-// Generate time slots from 10:00 to 17:00 in 30-minute intervals
-const generateTimeSlots = () => {
-  const slots = []
-  for (let hour = 10; hour <= 17; hour++) {
-    if (hour === 17) {
-      slots.push(`${hour.toString().padStart(2, '0')}:00`)
-    } else {
-      slots.push(`${hour.toString().padStart(2, '0')}:00`)
-      slots.push(`${hour.toString().padStart(2, '0')}:30`)
-    }
-  }
-  return slots
-}
-
-const timeSlots = generateTimeSlots()
+// Specific time slots as requested
+const timeSlots = [
+  "10:00",
+  "11:00",
+  "13:00",
+  "14:00"
+]
 
 // Only 30-minute meetings are allowed
 const meetingDuration = 30
@@ -118,22 +110,24 @@ export function BookingCalendar() {
   }
 
   return (
-    <div className="max-w-7xl mx-auto space-y-8">
-      {/* Calendar and Time Selection Section */}
+    <div className="max-w-7xl mx-auto">
+      {/* Single Block for Everything */}
       <Card>
         <CardHeader className="text-center">
           <CardTitle className="flex items-center justify-center gap-2 text-2xl">
             <CalendarIcon className="h-6 w-6" />
-            Select Date & Time
+            Book a Consultation
           </CardTitle>
           <CardDescription className="text-base">
-            Choose your preferred date and time for our consultation call
+            Choose your preferred date and time, then tell me about your project
           </CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="space-y-8">
+          {/* Calendar and Time Selection Section */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
             {/* Calendar */}
             <div className="lg:col-span-1">
+              <Label className="text-sm font-medium mb-3 block">Select Date</Label>
               <Calendar
                 mode="single"
                 selected={selectedDate}
@@ -145,11 +139,11 @@ export function BookingCalendar() {
             </div>
 
             {/* Time Slots */}
-            <div className="lg:col-span-2">
-              <Label className="text-sm font-medium mb-4 block">
+            <div className="lg:col-span-1">
+              <Label className="text-sm font-medium mb-3 block">
                 Available Times (30 minutes each)
               </Label>
-              <div className="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-5 gap-3">
+              <div className="grid grid-cols-2 gap-3">
                 {availableTimeSlots.map((time) => {
                   const endTime = calculateEndTime(time)
                   return (
@@ -183,101 +177,93 @@ export function BookingCalendar() {
                 </div>
               )}
             </div>
-          </div>
-        </CardContent>
-      </Card>
 
-      {/* Booking Form */}
-      <Card>
-        <CardHeader className="text-center">
-          <CardTitle className="flex items-center justify-center gap-2 text-2xl">
-            <User className="h-6 w-6" />
-            Your Information
-          </CardTitle>
-          <CardDescription className="text-base">
-            Tell me about your project and how I can help you
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {/* Form Fields */}
-            <div className="lg:col-span-2">
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="name">Name *</Label>
-                    <Input
-                      id="name"
-                      value={formData.name}
-                      onChange={(e) => handleInputChange("name", e.target.value)}
-                      placeholder="Your full name"
-                      required
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="email">Email *</Label>
-                    <Input
-                      id="email"
-                      type="email"
-                      value={formData.email}
-                      onChange={(e) => handleInputChange("email", e.target.value)}
-                      placeholder="your@email.com"
-                      required
-                    />
-                  </div>
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="company">Company</Label>
-                  <Input
-                    id="company"
-                    value={formData.company}
-                    onChange={(e) => handleInputChange("company", e.target.value)}
-                    placeholder="Your company name (optional)"
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="message">Project Details *</Label>
-                  <Textarea
-                    id="message"
-                    value={formData.message}
-                    onChange={(e) => handleInputChange("message", e.target.value)}
-                    placeholder="Tell me about your project, goals, timeline, and any specific requirements..."
-                    className="min-h-[120px]"
-                    required
-                  />
-                </div>
-
-                <Button
-                  type="submit"
-                  className="w-full"
-                  size="lg"
-                  disabled={!selectedDate || !selectedTime || !formData.name || !formData.email || !formData.message}
-                >
-                  Book Consultation Call
-                </Button>
-              </form>
-            </div>
-
-            {/* What to Expect Sidebar */}
+            {/* What to Expect */}
             <div className="lg:col-span-1">
-              <div className="sticky top-8">
-                <div className="flex items-start gap-3 p-4 bg-muted rounded-lg">
-                  <MessageSquare className="h-5 w-5 text-muted-foreground mt-0.5" />
-                  <div className="text-sm">
-                    <p className="font-medium">What to expect:</p>
-                    <ul className="text-muted-foreground mt-2 space-y-1">
-                      <li>• 30-minute consultation meeting</li>
-                      <li>• Available 10:00 AM - 5:00 PM, weekdays only</li>
-                      <li>• Discussion of your project requirements</li>
-                      <li>• Technical recommendations and timeline</li>
-                      <li>• Custom proposal and next steps</li>
-                    </ul>
-                  </div>
+              <Label className="text-sm font-medium mb-3 block">What to Expect</Label>
+              <div className="flex items-start gap-3 p-4 bg-muted rounded-lg">
+                <MessageSquare className="h-5 w-5 text-muted-foreground mt-0.5" />
+                <div className="text-sm">
+                  <ul className="text-muted-foreground space-y-1">
+                    <li>• 30-minute consultation meeting</li>
+                    <li>• Available at 10:00, 11:00, 13:00, 14:00</li>
+                    <li>• Discussion of your project requirements</li>
+                    <li>• Technical recommendations and timeline</li>
+                    <li>• Custom proposal and next steps</li>
+                  </ul>
                 </div>
               </div>
             </div>
+          </div>
+
+          <hr className="border-border" />
+
+          {/* Booking Form */}
+          <div>
+            <div className="text-center mb-6">
+              <h3 className="text-xl font-semibold flex items-center justify-center gap-2">
+                <User className="h-5 w-5" />
+                Your Information
+              </h3>
+              <p className="text-muted-foreground mt-1">Tell me about your project and how I can help you</p>
+            </div>
+
+            <form onSubmit={handleSubmit} className="max-w-2xl mx-auto space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="name">Name *</Label>
+                  <Input
+                    id="name"
+                    value={formData.name}
+                    onChange={(e) => handleInputChange("name", e.target.value)}
+                    placeholder="Your full name"
+                    required
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="email">Email *</Label>
+                  <Input
+                    id="email"
+                    type="email"
+                    value={formData.email}
+                    onChange={(e) => handleInputChange("email", e.target.value)}
+                    placeholder="your@email.com"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="company">Company</Label>
+                <Input
+                  id="company"
+                  value={formData.company}
+                  onChange={(e) => handleInputChange("company", e.target.value)}
+                  placeholder="Your company name (optional)"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="message">Project Details *</Label>
+                <Textarea
+                  id="message"
+                  value={formData.message}
+                  onChange={(e) => handleInputChange("message", e.target.value)}
+                  placeholder="Tell me about your project, goals, timeline, and any specific requirements..."
+                  className="min-h-[120px]"
+                  required
+                />
+              </div>
+
+              <Button
+                type="submit"
+                className="w-full"
+                size="lg"
+                disabled={!selectedDate || !selectedTime || !formData.name || !formData.email || !formData.message}
+              >
+                Book Consultation Call
+              </Button>
+            </form>
           </div>
         </CardContent>
       </Card>
